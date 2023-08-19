@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  fe:
+    build: ./client
+    ports:
+      - 3000:3000
+    networks:
+      - crud
+
+  be:
+    build: ./
+    ports:
+      - 5566:5566
+    environment:
+      - MONGODB_URI=mongodb://db:27017/dbname
+    networks:
+      - crud
+
+  db:
+    image: mongo
+    hostname: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - crud
+
+networks:
+  crud:
